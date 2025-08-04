@@ -1,0 +1,73 @@
+<!-- Start of Chat Widget code -->
+<script type="text/javascript"> 
+	async function initWidget(t){ 
+		var e , i , styleConfig = {}; 
+		let s = "374px", o = "24px", position = "right", d = "608px";
+		try { 
+			let l = await (await fetch("https://mindx.mindxp.ai/api/v1/scope/2Oe1H6yDRLiF4FeNGUkh6A/web_widget_style/")).json(); 
+			let n = l?.results?.[0]?.style; styleConfig = n; s = n?.size && n?.size === "expanded" ? "680px" : "374px";
+			o = n?.size && n?.size === "expanded" ? "32px" : "24px";
+			position = n?.widget_position ?? "right";
+			d = n?.size && n?.size === "expanded" ? "calc(100% - 98px)" : "608px";
+		} catch (a) { 
+			console.log(a);
+			styleConfig.new_message_preview = true;
+		} function y(data) {
+			const widgetButton = { width: '92px', height: '92px', };
+			if (data?.minimized || data?.minimized === undefined) { 
+				e.style[position] = '0'; 
+				e.style.bottom = '0'; 
+				e.style.height = !styleConfig?.new_message_preview || !data.unseenMessage ? widgetButton.height : "150px"; 
+				if (window.innerWidth <= 480) { 
+					e.style.width = !styleConfig?.new_message_preview || !data.unseenMessage ? widgetButton.width : "100%"; 
+					} else { 
+						if (!styleConfig?.new_message_preview || !data.unseenMessage) { 
+							e.style.width = widgetButton.width; 
+						} else { 
+							e.style.width = '326px'; 
+						} 
+					} 
+				} else { 
+					if (window.innerWidth <= 480) { 
+						e.style.width = "100%"; 
+						e.style.height = "100%"; 
+						e.style[position] = '0'; 
+						e.style.bottom = '0'; 
+						e.style.borderRadius = "0"; 
+					} else { 
+						e.style.width = s; 
+						e.style.height = d; 
+						e.style[position] = o; 
+						e.style.bottom = o; 
+						e.style.borderRadius = "10px"; 
+					} 
+				} 
+			} 
+			t = void 0 === t.query ? "" : t.query; 
+			if (!window.location.pathname.startsWith("/iframes/chatbot")) { 
+				(e = document.createElement("iframe")).setAttribute("id", "chatbot--window"); 
+				e.setAttribute("src", "https://mindx.mindxp.ai/iframes/chatbot" + t); 
+				e.setAttribute("allowfullscreen", "true"); 
+				e.style.cssText = "position:fixed;border:none;z-index:2147483647;bottom: o; right: o;width: 60px;height:60px"; 
+				document.body.appendChild(e); window.addEventListener("message", function (t) { 
+					if ("web_widget" === (i = t.data).type) { 
+						e.style.width = t.data.minimized ? "auto" : t.data.width + "px"; 
+						e.style.minHeight = !styleConfig?.new_message_preview || !t.data.unseenMessage ? '92px' : 
+						"150px"; e.style.borderRadius = t.data.minimized ? "0" : "10px"; 
+						y(t.data); } }); window?.addEventListener("resize", function () { 
+							y(); 
+
+						}); 
+					} 
+				} 
+			var inter = setInterval(function () { 
+				if (document.body) { 
+					clearInterval(inter); 
+					initWidget({
+						query: "?scope_key=2Oe1H6yDRLiF4FeNGUkh6A&dev_key=FvUT72v1TzaD3J9LLaDWuw&session_timeout=30&v=20230619"
+					}); 
+				} 
+			}, 10); 	
+</script> 
+		
+<!-- End of Chat Widget code -->
